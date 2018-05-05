@@ -23,7 +23,7 @@ public class KeyboardListener implements ViewTreeObserver.OnGlobalLayoutListener
     private OnKeyboardListener mKeyboardListener;//键盘状态监听
     private Window mWindow;
     private int mNavigationBarHeight = 0;//状态栏高度
-    private  View contentView;
+    private View contentView;
 
     public KeyboardListener(Context mContext) {
         this.mContext = mContext;
@@ -32,7 +32,7 @@ public class KeyboardListener implements ViewTreeObserver.OnGlobalLayoutListener
             return;
         }
         View decorView = mWindow.getDecorView();
-        if(decorView ==null){
+        if (decorView == null) {
             return;
         }
         //获取contentView
@@ -48,6 +48,7 @@ public class KeyboardListener implements ViewTreeObserver.OnGlobalLayoutListener
         mNavigationBarHeight = resources.getDimensionPixelOffset(navigationBarID);
 
     }
+
 
     @Override
     public void onGlobalLayout() {
@@ -69,6 +70,14 @@ public class KeyboardListener implements ViewTreeObserver.OnGlobalLayoutListener
             }
 
         }
+    }
+
+
+    public void removeGlobalLayoutListener() {
+        if(contentView ==null){
+            return;
+        }
+        contentView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
 
     public void setOnKeyboardListener(OnKeyboardListener onKeyboardListener) {

@@ -12,6 +12,7 @@ import android.view.ViewTreeObserver;
 public class MainActivity extends AppCompatActivity {
 
     private View viewById;
+    private KeyboardListener keyboardListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        KeyboardListener keyboardListener = new KeyboardListener(this);
+        keyboardListener = new KeyboardListener(this);
         keyboardListener.setOnKeyboardListener(new KeyboardListener.OnKeyboardListener() {
             @Override
             public void onKeyboardOpened(int keyboardHeight) {
@@ -35,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("test","close");
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(keyboardListener !=null){
+            keyboardListener.removeGlobalLayoutListener();
+        }
     }
 
 }
